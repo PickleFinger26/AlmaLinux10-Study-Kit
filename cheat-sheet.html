@@ -1,0 +1,554 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AlmaLinux 10 interactive study notes and LinuxZoo companion"><title>Linux Command Cheat Sheet | LinuxZoo Study Desk</title><style>
+:root{color-scheme:dark;font:16px/1.6 system-ui,Segoe UI,Arial;background:#101727;color:#ecf3ff}*{box-sizing:border-box}body{margin:0}a{color:#80ddeb}a:hover{color:#c1f5ff}header{background:#16233a;border-bottom:1px solid #38455d;padding:28px max(20px,calc((100% - 1040px)/2))}main{max-width:1040px;margin:auto;padding:24px 18px 80px}.topnav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:15px}.topnav a{padding:7px 12px;border:1px solid #3c516b;border-radius:9px;text-decoration:none;color:#d6eefb}.topnav a[aria-current=page]{background:#146d87;color:white}h1{font-size:clamp(1.6rem,4vw,2.7rem);margin:8px 0}h2{color:#abedf3;margin-top:40px;border-bottom:1px solid #334d67;padding-bottom:8px}h3{margin-top:26px}p,li{color:#d4e2f4}p.subtle{color:#a8b8d1}.content{background:#17243a;border:1px solid #3c516b;border-radius:16px;padding:24px;margin-top:18px}table{border-collapse:collapse;width:100%;margin:16px 0 26px}th,td{border:1px solid #3b506c;text-align:left;padding:10px 12px;vertical-align:top}th{background:#263b57}tr:nth-child(even){background:#1d3049}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#273d57;color:#bcecf4;padding:2px 5px;border-radius:5px;overflow-wrap:anywhere}pre{position:relative;overflow:auto;background:#0e1a2b;padding:16px;border-radius:12px}pre code{padding:0;background:transparent}.table-wrap{overflow-x:auto}blockquote{margin:18px 0;border-left:4px solid #4ec0c8;padding:8px 18px;background:#1d3049}blockquote p{margin:4px 0}input[type=search]{width:100%;padding:13px 15px;border:1px solid #587692;background:#20344d;color:white;border-radius:10px;font:inherit}.hint{font-size:.88rem;color:#b4c7df}button{cursor:pointer;border:1px solid #53718c;background:#24405b;color:white;border-radius:9px;padding:9px 13px;font:inherit}button:hover{background:#315577}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #83d5ff;outline-offset:2px}.week{margin:20px 0;background:#20324a;border:1px solid #425d78;border-radius:12px;padding:18px}.week h3{margin:0 0 8px}.week label{display:block;margin:10px 0}.week input{width:18px;height:18px;vertical-align:middle;accent-color:#4ec0c8}.pill{background:#184e5e;color:#b8f1fc;border-radius:999px;padding:4px 10px;font-size:.83rem}.row{display:flex;align-items:center;gap:15px;flex-wrap:wrap;justify-content:space-between}.copy{font-size:.75rem;padding:4px 8px;margin-left:7px}.hidden-row{display:none}footer{color:#a8b8d1;text-align:center;padding:30px 15px}@media(max-width:650px){.content{padding:15px}th,td{padding:8px 6px;font-size:.88rem}}</style></head><body><header><nav class="topnav" aria-label="Study sections"><a href="index.html">Flashcards</a><a href="cheat-sheet.html" aria-current="page">Command cheat sheet</a><a href="study-plan.html">Study plan</a></nav><h1>Linux Command Cheat Sheet</h1><p class="subtle">AlmaLinux 10 · LinuxZoo Study Desk · Works on GitHub Pages</p></header><main><section class="content"><label for="search"><strong>Search commands and descriptions</strong></label><input id="search" type="search" placeholder="Try: chmod, SELinux, DNS, systemctl..." autocomplete="off"><p id="matches" class="hint" aria-live="polite">Search the command tables below.</p></section><article class="content"><h1>AlmaLinux 10 command cheat sheet</h1>
+<blockquote>
+<p>These are examples, not guaranteed answers to LinuxZoo graded questions. Replace placeholder names and paths. Commands affecting security or services belong in your own VM.</p>
+</blockquote>
+<h2>Permission octal reference</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Octal</th>
+  <th>Bits</th>
+  <th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>0</td>
+  <td>---</td>
+  <td>none</td>
+</tr>
+<tr>
+  <td>1</td>
+  <td>--x</td>
+  <td>execute/traverse</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>-w-</td>
+  <td>write</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>-wx</td>
+  <td>write + execute</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>r--</td>
+  <td>read</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>r-x</td>
+  <td>read + execute</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>rw-</td>
+  <td>read + write</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>rwx</td>
+  <td>all</td>
+</tr>
+</tbody>
+</table></div>
+<p>Examples: <code>644 = rw-r--r--</code>, <code>640 = rw-r-----</code>, <code>750 = rwxr-x---</code>, <code>755 = rwxr-xr-x</code>.</p>
+<p><strong>Symbolic:</strong> <code>u</code> owner, <code>g</code> group, <code>o</code> others, <code>a</code> all; <code>+</code>, <code>-</code>, <code>=</code> change modes.</p>
+<p><strong>Redirection:</strong> <code>&gt;</code> replace, <code>&gt;&gt;</code> append, <code>2&gt;</code> error output, <code>|</code> pipe.</p>
+<hr />
+<h2>Shell and files</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>pwd</code></td>
+  <td>Print current directory</td>
+</tr>
+<tr>
+  <td><code>ls -la</code></td>
+  <td>Show all entries and detailed permissions</td>
+</tr>
+<tr>
+  <td><code>cd ~</code></td>
+  <td>Go home</td>
+</tr>
+<tr>
+  <td><code>mkdir -p a/b</code></td>
+  <td>Create nested directories</td>
+</tr>
+<tr>
+  <td><code>cp -i source destination</code></td>
+  <td>Copy, prompting before overwriting</td>
+</tr>
+<tr>
+  <td><code>mv -i old new</code></td>
+  <td>Rename/move, prompting before overwriting</td>
+</tr>
+<tr>
+  <td><code>rm -i file</code></td>
+  <td>Remove a file with confirmation</td>
+</tr>
+<tr>
+  <td><code>stat file</code></td>
+  <td>Inspect size, ownership, times and permissions</td>
+</tr>
+<tr>
+  <td><code>file name</code></td>
+  <td>Detect file type</td>
+</tr>
+<tr>
+  <td><code>cal 12 2002</code></td>
+  <td>Display calendar for December 2002</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Globbing and searching</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>ls *.txt</code></td>
+  <td>Match names ending in .txt</td>
+</tr>
+<tr>
+  <td><code>ls file?.txt</code></td>
+  <td>Single-character placeholder</td>
+</tr>
+<tr>
+  <td><code>ls file[12].txt</code></td>
+  <td>Match listed characters</td>
+</tr>
+<tr>
+  <td><code>find . -type f -name &quot;*.log&quot;</code></td>
+  <td>Recursively find log files</td>
+</tr>
+<tr>
+  <td><code>grep -Rni &quot;error&quot; .</code></td>
+  <td>Recursive case-insensitive search with line numbers</td>
+</tr>
+<tr>
+  <td><code>which ssh</code></td>
+  <td>Locate executable in PATH</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Pipes and redirection</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>cmd &gt; output</code></td>
+  <td>Overwrite output</td>
+</tr>
+<tr>
+  <td><code>cmd &gt;&gt; output</code></td>
+  <td>Append output</td>
+</tr>
+<tr>
+  <td><code>cmd 2&gt; error.log</code></td>
+  <td>Redirect error output</td>
+</tr>
+<tr>
+  <td><code>cmd1 \| cmd2</code></td>
+  <td>Pipe stdout</td>
+</tr>
+<tr>
+  <td><code>head -n 5000 words \| tail -n 1</code></td>
+  <td>Extract line 5000</td>
+</tr>
+<tr>
+  <td><code>sort file \| uniq -c \| sort -nr</code></td>
+  <td>Frequency sort</td>
+</tr>
+<tr>
+  <td><code>wc -l file</code></td>
+  <td>Count newline-terminated lines</td>
+</tr>
+<tr>
+  <td><code>tail -f /var/log/messages</code></td>
+  <td>Follow a growing log file</td>
+</tr>
+<tr>
+  <td><code>tee output</code></td>
+  <td>Display and save pipeline input</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Permissions</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>ls -l file</code></td>
+  <td>Read owner/group/other permissions</td>
+</tr>
+<tr>
+  <td><code>chmod 640 file</code></td>
+  <td>Owner rw; group r; others none</td>
+</tr>
+<tr>
+  <td><code>chmod 750 script</code></td>
+  <td>Owner rwx; group rx; others none</td>
+</tr>
+<tr>
+  <td><code>chmod u+x script</code></td>
+  <td>Add execute for owner</td>
+</tr>
+<tr>
+  <td><code>chmod g-w file</code></td>
+  <td>Remove group write</td>
+</tr>
+<tr>
+  <td><code>chown user:group file</code></td>
+  <td>Change owner/group (normally root)</td>
+</tr>
+<tr>
+  <td><code>umask</code></td>
+  <td>Display creation-mask settings</td>
+</tr>
+<tr>
+  <td><code>id; groups</code></td>
+  <td>Show current user and group memberships</td>
+</tr>
+</tbody>
+</table></div>
+<h2>vi quick keys</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>i</code></td>
+  <td>Enter insert mode</td>
+</tr>
+<tr>
+  <td><code>Esc</code></td>
+  <td>Return to normal mode</td>
+</tr>
+<tr>
+  <td><code>:wq</code></td>
+  <td>Write and exit</td>
+</tr>
+<tr>
+  <td><code>:q!</code></td>
+  <td>Quit without saving</td>
+</tr>
+<tr>
+  <td><code>dd</code></td>
+  <td>Delete current line</td>
+</tr>
+<tr>
+  <td><code>yy</code></td>
+  <td>Yank current line</td>
+</tr>
+<tr>
+  <td><code>p</code></td>
+  <td>Paste after cursor</td>
+</tr>
+<tr>
+  <td><code>/word</code></td>
+  <td>Search forward</td>
+</tr>
+<tr>
+  <td><code>n</code></td>
+  <td>Next match</td>
+</tr>
+<tr>
+  <td><code>u</code></td>
+  <td>Undo</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Processes and storage</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>ps aux</code></td>
+  <td>Processes with details</td>
+</tr>
+<tr>
+  <td><code>ps -ef</code></td>
+  <td>Full process list</td>
+</tr>
+<tr>
+  <td><code>pgrep -a rsyslogd</code></td>
+  <td>Find PID and command</td>
+</tr>
+<tr>
+  <td><code>kill -TERM PID</code></td>
+  <td>Request graceful process termination</td>
+</tr>
+<tr>
+  <td><code>lsblk -f</code></td>
+  <td>Block devices and filesystems</td>
+</tr>
+<tr>
+  <td><code>df -h</code></td>
+  <td>Filesystem usage</td>
+</tr>
+<tr>
+  <td><code>du -sh DIRECTORY</code></td>
+  <td>Directory size</td>
+</tr>
+<tr>
+  <td><code>sudo pvdisplay</code></td>
+  <td>LVM physical volumes</td>
+</tr>
+<tr>
+  <td><code>sudo vgdisplay</code></td>
+  <td>LVM volume groups</td>
+</tr>
+<tr>
+  <td><code>sudo lvdisplay</code></td>
+  <td>LVM logical volumes</td>
+</tr>
+<tr>
+  <td><code>cat /proc/swaps</code></td>
+  <td>Swap allocations</td>
+</tr>
+<tr>
+  <td><code>findmnt /</code></td>
+  <td>Show root mount</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Services and logs</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>systemctl status rsyslog</code></td>
+  <td>Service status</td>
+</tr>
+<tr>
+  <td><code>systemctl cat rsyslog</code></td>
+  <td>Read unit definition</td>
+</tr>
+<tr>
+  <td><code>sudo systemctl start httpd</code></td>
+  <td>Start service now</td>
+</tr>
+<tr>
+  <td><code>sudo systemctl reload httpd</code></td>
+  <td>Reload service configuration</td>
+</tr>
+<tr>
+  <td><code>sudo systemctl enable mariadb</code></td>
+  <td>Enable service at boot</td>
+</tr>
+<tr>
+  <td><code>sudo systemctl disable mariadb</code></td>
+  <td>Disable boot activation</td>
+</tr>
+<tr>
+  <td><code>journalctl -u httpd -n 50</code></td>
+  <td>Recent service journal</td>
+</tr>
+<tr>
+  <td><code>journalctl -p err -b</code></td>
+  <td>Errors since boot</td>
+</tr>
+<tr>
+  <td><code>systemctl --failed</code></td>
+  <td>List failed units</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Networking and DNS</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>ip -br a</code></td>
+  <td>Brief interface addresses</td>
+</tr>
+<tr>
+  <td><code>ip route</code></td>
+  <td>Routes and gateway</td>
+</tr>
+<tr>
+  <td><code>ip -4 addr</code></td>
+  <td>IPv4 addresses and prefix</td>
+</tr>
+<tr>
+  <td><code>nmcli device status</code></td>
+  <td>NetworkManager devices</td>
+</tr>
+<tr>
+  <td><code>ss -lntup</code></td>
+  <td>Listening TCP/UDP sockets</td>
+</tr>
+<tr>
+  <td><code>ping -c 3 127.0.0.1</code></td>
+  <td>Check local IP stack</td>
+</tr>
+<tr>
+  <td><code>dig example.org A</code></td>
+  <td>Query A record</td>
+</tr>
+<tr>
+  <td><code>dig example.org MX</code></td>
+  <td>Query MX record</td>
+</tr>
+<tr>
+  <td><code>dig @127.0.0.1 example.org</code></td>
+  <td>Query chosen DNS server</td>
+</tr>
+<tr>
+  <td><code>named-checkconf</code></td>
+  <td>Validate named config</td>
+</tr>
+<tr>
+  <td><code>named-checkzone example.test zonefile</code></td>
+  <td>Validate DNS zone</td>
+</tr>
+</tbody>
+</table></div>
+<h2>SELinux</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>getenforce</code></td>
+  <td>Current SELinux mode</td>
+</tr>
+<tr>
+  <td><code>sestatus</code></td>
+  <td>Detailed SELinux status</td>
+</tr>
+<tr>
+  <td><code>ls -Z file</code></td>
+  <td>File SELinux context</td>
+</tr>
+<tr>
+  <td><code>ps -eZ</code></td>
+  <td>Process SELinux contexts</td>
+</tr>
+<tr>
+  <td><code>matchpathcon PATH</code></td>
+  <td>Expected file context</td>
+</tr>
+<tr>
+  <td><code>sudo restorecon -v PATH</code></td>
+  <td>Apply default file context</td>
+</tr>
+<tr>
+  <td><code>sudo semanage fcontext -l</code></td>
+  <td>Persistent file label mappings</td>
+</tr>
+<tr>
+  <td><code>sudo semanage port -l</code></td>
+  <td>Port type mappings</td>
+</tr>
+<tr>
+  <td><code>getsebool -a</code></td>
+  <td>List policy booleans</td>
+</tr>
+<tr>
+  <td><code>sudo setsebool -P BOOLEAN on</code></td>
+  <td>Set boolean persistently</td>
+</tr>
+<tr>
+  <td><code>sudo ausearch -m AVC -ts recent</code></td>
+  <td>Recent access denials</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Firewall and web</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>sudo nft list ruleset</code></td>
+  <td>Display nftables rules</td>
+</tr>
+<tr>
+  <td><code>sudo iptables -S</code></td>
+  <td>Display iptables rules</td>
+</tr>
+<tr>
+  <td><code>sudo firewall-cmd --list-all</code></td>
+  <td>Show firewalld zone config (if available)</td>
+</tr>
+<tr>
+  <td><code>sudo apachectl configtest</code></td>
+  <td>Check Apache config syntax</td>
+</tr>
+<tr>
+  <td><code>httpd -S</code></td>
+  <td>Display Apache virtual host map</td>
+</tr>
+<tr>
+  <td><code>curl -I http://localhost/</code></td>
+  <td>Fetch response headers</td>
+</tr>
+<tr>
+  <td><code>curl -u user http://localhost/private/</code></td>
+  <td>Test HTTP basic auth over a trusted lab connection</td>
+</tr>
+<tr>
+  <td><code>htpasswd -c users.htpasswd user</code></td>
+  <td>Create an auth file (initial creation only)</td>
+</tr>
+<tr>
+  <td><code>getsebool httpd_read_user_content</code></td>
+  <td>Inspect UserDir SELinux boolean</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Troubleshooting flow</h2>
+<p><code>id</code> → <code>ls -l</code> → <code>ls -Z</code> → <code>systemctl status SERVICE</code> → <code>journalctl -u SERVICE</code> → <code>ss -lntup</code> → application syntax test.</p>
+</article><script>const q=document.getElementById('search'),rows=[...document.querySelectorAll('.content table tbody tr')],status=document.getElementById('matches');q.addEventListener('input',()=>{const term=q.value.trim().toLowerCase();let count=0;for(const tr of rows){const show=tr.textContent.toLowerCase().includes(term);tr.classList.toggle('hidden-row',!show);if(show)count++}status.textContent=term?`${count} matching command rows (other reference sections remain visible).`:'Search the command tables below.'});</script></main><footer>Independent study companion · <a href="https://github.com/PickleFinger26/AlmaLinux10-Study-Kit" target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a></footer></body></html>
