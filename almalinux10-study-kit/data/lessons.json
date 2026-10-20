@@ -1,0 +1,146 @@
+[
+  {
+    "id": "intro1",
+    "title": "Shell 101",
+    "url": "https://linuxzoo.net/page/alma10/01-intro1.html",
+    "note": "notes/01-intro1.md",
+    "focus": "Shell navigation, calendars and file operations",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "intro2",
+    "title": "Directories",
+    "url": "https://linuxzoo.net/page/alma10/02-intro2.html",
+    "note": "notes/02-intro2.md",
+    "focus": "Absolute/relative paths, directory trees and moving around",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "wildcard",
+    "title": "Wildcards",
+    "url": "https://linuxzoo.net/page/alma10/03-intro3.html",
+    "note": "notes/03-wildcard.md",
+    "focus": "Shell globbing and filename matching",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "permission",
+    "title": "Permissions",
+    "url": "https://linuxzoo.net/page/alma10/04-intro4.html",
+    "note": "notes/04-permission.md",
+    "focus": "Owner/group/other, rwx, octal and symbolic chmod",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "pipe",
+    "title": "Pipes",
+    "url": "https://linuxzoo.net/page/alma10/05-intro5.html",
+    "note": "notes/05-pipe.md",
+    "focus": "Pipelines, redirection, filters and text processing",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "vi",
+    "title": "The vi Editor",
+    "url": "https://linuxzoo.net/page/alma10/06-intro6.html",
+    "note": "notes/06-vi.md",
+    "focus": "Modal editing, navigation, search and saving",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "essential",
+    "title": "Essential Unix Commands",
+    "url": "https://linuxzoo.net/page/alma10/07-essential.html",
+    "note": "notes/07-essential.md",
+    "focus": "Finding files, processes and systems information",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "admin",
+    "title": "Essential Unix Administration",
+    "url": "https://linuxzoo.net/page/alma10/08-admin.html",
+    "note": "notes/08-admin.md",
+    "focus": "LVM, block devices, processes, systemd services",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "net",
+    "title": "Linux Networking",
+    "url": "https://linuxzoo.net/page/alma10/09-net.html",
+    "note": "notes/09-net.md",
+    "focus": "Interfaces, addresses, routes and host troubleshooting",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "SELinux1",
+    "title": "SELinux Administration",
+    "url": "https://linuxzoo.net/page/alma10/10-selinux1.html",
+    "note": "notes/10-SELinux1.md",
+    "focus": "SELinux mode, contexts, rules, ports and transitions",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "SELinux2",
+    "title": "SELinux Usage",
+    "url": "https://linuxzoo.net/page/alma10/11-selinux2.html",
+    "note": "notes/11-SELinux2.md",
+    "focus": "Changing SELinux labels, policy mappings and booleans",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "fwall",
+    "title": "Firewalls",
+    "url": "https://linuxzoo.net/page/alma10/12-fwall.html",
+    "note": "notes/12-fwall.md",
+    "focus": "Packet filtering, rules, ports and verification",
+    "inactive_on_homepage": true
+  },
+  {
+    "id": "DNS",
+    "title": "DNS named",
+    "url": "https://linuxzoo.net/page/alma10/13-dns.html",
+    "note": "notes/13-DNS.md",
+    "focus": "DNS querying, records, BIND configuration and validation",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "diag",
+    "title": "Server Admin Tasks",
+    "url": "https://linuxzoo.net/page/alma10/14-diag.html",
+    "note": "notes/14-diag.md",
+    "focus": "Diagnosis: services, resources, logs and sockets",
+    "inactive_on_homepage": true
+  },
+  {
+    "id": "Apache1",
+    "title": "HTTP Server",
+    "url": "https://linuxzoo.net/page/alma10/15-apache1.html",
+    "note": "notes/15-Apache1.md",
+    "focus": "Apache httpd, UserDir, virtual hosts and SELinux",
+    "inactive_on_homepage": true
+  },
+  {
+    "id": "Apache2",
+    "title": "Basic Authentication",
+    "url": "https://linuxzoo.net/page/alma10/16-apache2.html",
+    "note": "notes/16-Apache2.md",
+    "focus": "HTTP basic auth, password files and access restrictions",
+    "inactive_on_homepage": true
+  },
+  {
+    "id": "log",
+    "title": "Basic File Handling",
+    "url": "https://linuxzoo.net/page/alma10/17-log.html",
+    "note": "notes/17-log.md",
+    "focus": "Log scanning, text extraction and pipelines",
+    "inactive_on_homepage": false
+  },
+  {
+    "id": "Mail",
+    "title": "Procmail configuration",
+    "url": "https://linuxzoo.net/page/alma10/18-email.html",
+    "note": "notes/18-Mail.md",
+    "focus": "Mail processing and basic filtering (legacy tutorial)",
+    "inactive_on_homepage": true
+  }
+]
